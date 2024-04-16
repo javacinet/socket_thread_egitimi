@@ -1,1 +1,1 @@
-# socket_thread_egitimi
+# socket_thread_training
