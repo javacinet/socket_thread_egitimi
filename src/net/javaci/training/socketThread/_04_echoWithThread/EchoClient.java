@@ -1,4 +1,4 @@
-package net.javaci.training.socketThread._04_echoServerWithThread;
+package net.javaci.training.socketThread._04_echoWithThread;
 
 import java.io.*;
 import java.net.Socket;

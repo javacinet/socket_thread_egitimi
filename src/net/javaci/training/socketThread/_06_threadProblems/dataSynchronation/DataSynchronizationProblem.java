@@ -1,4 +1,4 @@
-package net.javaci.training.socketThread._06_threadProblems;
+package net.javaci.training.socketThread._06_threadProblems.dataSynchronation;
 
 public class DataSynchronizationProblem {
     public static int counter = 0;

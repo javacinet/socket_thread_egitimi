@@ -1,8 +1,7 @@
-package net.javaci.training.socketThread._05_multiThreadedTicTacToeGui;
+package net.javaci.training.socketThread._05_chatGUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;

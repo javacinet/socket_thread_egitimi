@@ -1,4 +1,4 @@
-package net.javaci.training.socketThread._02_echoServerGUI;
+package net.javaci.training.socketThread._02_ServerGUI._2_echo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,8 +21,8 @@ class ServerFrame extends JFrame {
         JFrame serverFrame = new ServerFrame();
         serverFrame.setTitle("Echo Server");
         serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        serverFrame.setVisible(true);
-        // serverFrame.show(true);
+
+
     }
 
     public ServerFrame() {
@@ -31,29 +31,34 @@ class ServerFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(logArea);
         add(scrollPane, BorderLayout.CENTER);
 
+        setSize(300, 200);
+        setVisible(true);
+
         try {
-            serverSocket = new ServerSocket(9999);
-            log("Server started.");
-            log("Waiting for a client...");
+            while (true) {
+                serverSocket = new ServerSocket(9999);
+                log("Server started.");
+                log("Waiting for a client...");
 
-            clientSocket = serverSocket.accept();
-            log("Client connected: " + clientSocket);
+                clientSocket = serverSocket.accept();
+                log("Client connected: " + clientSocket);
 
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                out = new PrintWriter(clientSocket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                log("Client: " + inputLine);
-                out.println("Server: " + inputLine);
-                if (inputLine.equals("bye"))
-                    break;
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    log("Client: " + inputLine);
+                    out.println("Server: " + inputLine);
+                    if (inputLine.equals("bye"))
+                        break;
+                }
+
+                out.close();
+                in.close();
+                clientSocket.close();
+                serverSocket.close();
             }
-
-            out.close();
-            in.close();
-            clientSocket.close();
-            serverSocket.close();
         } catch (IOException e) {
             log("Error: " + e.getMessage());
         }

@@ -1,4 +1,4 @@
-package net.javaci.training.socketThread._02_echoServerGUI;
+package net.javaci.training.socketThread._02_ServerGUI._2_echo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +19,7 @@ class ClientFrame extends JFrame {
         JFrame clientFrame = new ClientFrame();
         clientFrame.setTitle("Echo Client");
         clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        clientFrame.setVisible(true);
-        clientFrame.setSize(300, 200);
-        // clientFrame.show(true);
+
     }
 
     public ClientFrame() {
@@ -34,6 +32,10 @@ class ClientFrame extends JFrame {
         logArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(logArea);
         add(scrollPane, BorderLayout.CENTER);
+
+
+        setSize(300, 200);
+        setVisible(true);
 
         inputField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

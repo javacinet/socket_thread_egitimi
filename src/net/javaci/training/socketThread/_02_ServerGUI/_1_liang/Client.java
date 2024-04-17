@@ -1,4 +1,4 @@
-package net.javaci.training.socketThread._02_ServerGUI.liang;
+package net.javaci.training.socketThread._02_ServerGUI._1_liang;
 
 
 import java.io.*;
