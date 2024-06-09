@@ -4,34 +4,30 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class WebCrawler {
-    public static void main(String[] args) {
+
+    static ArrayList<String> listOfPendingURLs = new ArrayList<>();
+    static ArrayList<String> listOfTraversedURLs = new ArrayList<>();
+    static String startingURL;
+
+    public static void main(String[] args) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter a URL: ");
-        String url = "https://t24.com.tr/"; //input.nextLine();
-        crawler(url); // Traverse the Web from the a starting url
+        startingURL = "https://t24.com.tr/"; //input.nextLine();
+        crawler(); // Traverse the Web from the a starting url
     }
 
-    public static void crawler(String startingURL) {
-        ArrayList<String> listOfPendingURLs = new ArrayList<>();
-        ArrayList<String> listOfTraversedURLs = new ArrayList<>();
+    public static void crawler() throws InterruptedException {
 
         int counter = 1;
         listOfPendingURLs.add(startingURL);
         while (!listOfPendingURLs.isEmpty() &&
                 listOfTraversedURLs.size() <= 100) {
-            String urlString = listOfPendingURLs.remove(0);
-            if (!listOfTraversedURLs.contains(urlString)) {
-                listOfTraversedURLs.add(urlString);
-                System.out.println(counter + " Craw " + urlString);
-                counter++;
-
-                for (String s : getSubURLs(urlString, startingURL)) {
-                    if (!listOfTraversedURLs.contains(s))
-                        listOfPendingURLs.add(s);
-                }
-            }
+            new GetURL().start();
+            Thread.sleep(50);
         }
     }
+
+
 
     public static ArrayList<String> getSubURLs(String urlString, String startingURL) {
         ArrayList<String> list = new ArrayList<>();
@@ -61,4 +57,25 @@ public class WebCrawler {
 
         return list;
     }
+
+    static class GetURL extends Thread {
+        @Override
+        public void run() {
+            String urlString;
+            synchronized (listOfPendingURLs) {
+                urlString = listOfPendingURLs.remove(0);
+            }
+            if (!listOfTraversedURLs.contains(urlString)) {
+                listOfTraversedURLs.add(urlString);
+
+                for (String s : getSubURLs(urlString, startingURL)) {
+                    synchronized (listOfPendingURLs) {
+                        if (!listOfTraversedURLs.contains(s))
+                            listOfPendingURLs.add(s);
+                    }
+                }
+            }
+        }
+    }
 }
+

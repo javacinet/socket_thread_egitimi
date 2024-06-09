@@ -36,7 +36,7 @@ public class EchoClient {
                 System.out.println("Server response: " + response);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
     }
 }
